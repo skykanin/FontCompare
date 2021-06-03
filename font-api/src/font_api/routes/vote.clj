@@ -1,5 +1,6 @@
 (ns font-api.routes.vote
-  (:require [font-api.fonts :refer [font-list]]))
+  (:require [font-api.fonts :refer [font-list]]
+            [font-api.routes.util :refer [error-handler-rep]]))
 
 (defn- select-two
   "Select two unique fonts randomly"
@@ -31,7 +32,10 @@
 (defn register-vote
   "Register the results of a vote"
   [{font :body}]
-  (swap! font-list (fn [fonts] (update-font-vote (:id font) fonts)))
-  {:status 200
-   :headers {"Content-Type" "application/json"}
-   :body {:status "Vote tally updated"}})
+  (if-let [id (:id font)]
+    (do
+      (swap! font-list (fn [fonts] (update-font-vote id fonts)))
+      {:status 200
+       :headers {"Content-Type" "application/json"}
+       :body {:status "Vote tally updated"}})
+    (error-handler-rep 400 "'id' field missing from body"))) 
