@@ -21,13 +21,14 @@
 (def routes-with-cors
   (wrap-cors
    app-routes
+   :access-control-allow-credentials "true"
    :access-control-allow-origin [#".*"]
    :access-control-allow-methods
    [:delete :get :patch :post :put]
    :access-control-allow-headers
-   #{"accept"
-     "accept-encoding"
-     "accept-language"
-     "authorization"
-     "content-type"
-     "origin"}))
+   #{"Accept"
+     "Accept-Encoding"
+     "Accept-Language"
+     "Authorization"
+     "Content-Type"
+     "Origin"}))
