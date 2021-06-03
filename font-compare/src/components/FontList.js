@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiUri from "../api.js";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
 
 const List = styled.div`
   display: flex;
@@ -9,8 +19,9 @@ const List = styled.div`
   flex-grow: 1;
   justify-content: flex-start;
   height: 800px;
-  width: 550px;
+  width: 575px;
   margin: auto;
+  animation: ${fadeIn} 2s cubic-bezier(0.59, 0.87, 0.73, 0.57);
 `;
 
 const Name = styled.span`
