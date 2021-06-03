@@ -46,19 +46,18 @@ const Align = styled.div`
 
 // Displays the list over most popular fonts
 const FontList = (props) => {
-  const [fontList, setFontList] = useState([{ status: "No elements" }]);
+  const [fontList, setFontList] = useState([{ "font-name": "No elements" }]);
 
   useEffect(() => {
     axios
       .get(apiUri + "/list")
       .then((res) => {
-        console.log(res);
         setFontList(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [fontList]);
   const sortedItems = fontList.sort((a, b) => b.votes - a.votes);
 
   const listItems = sortedItems.map((el) => (
